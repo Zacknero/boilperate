@@ -1,0 +1,107 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended",
+        "prettier"
+      ],
+      "plugins": [
+        "prettier"
+      ],
+      "rules": {
+        "@angular-eslint/component-class-suffix": [
+          "error"
+        ],
+        "@angular-eslint/contextual-decorator": [
+          "error"
+        ],
+        "@angular-eslint/no-empty-lifecycle-method": [
+          "error"
+        ],
+        "@angular-eslint/sort-ngmodule-metadata-arrays": [
+          "error"
+        ],
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/restrict-plus-operands": "error",
+        "@typescript-eslint/no-unsafe-return": "error",
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true,
+            // Consente alle espressioni di avere il tipo implicito
+            "allowTypedFunctionExpressions": true,
+            // Consente alle funzioni con tipi espliciti
+            "allowHigherOrderFunctions": true
+            // Consente alle funzioni di ordine superiore con tipi espliciti
+          }
+        ],
+        "arrow-body-style": [
+          "error",
+          "as-needed"
+        ],
+        "func-style": [
+          "error",
+          "declaration",
+          {
+            "allowArrowFunctions": true
+          }
+        ],
+        "no-console": "warn",
+        "quotes": [
+          "error",
+          "single",
+          {
+            "allowTemplateLiterals": true
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "prettier/prettier": "error"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          }
+        ]
+      }
+    }
+  ]
+}
