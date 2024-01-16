@@ -1,40 +1,47 @@
 # Linee di guida come impostare il progetto Angular oltre allo sviluppo etico seguendo le best practices
 
-**Premessa**: Queste sono linee di guide che ho potuto assemblarli insieme in base alle esperienze personali in vari progetti Angular oltre ad alcuni riferimenti presi online. Ovviamente questo serve come base di riferimento per impostare il progetto scalabile, performante e di qualità senza limitare la fantasia di sviluppo. In questo caso mi faccio riferimento a progetti di grandi dimensioni dove per forza di cose vanno strutturate con un certo criterio.
+**Premessa**: Queste linee guida sono il risultato della mia esperienza personale in vari progetti Angular, integrate con riferimenti online. Servono come base di riferimento per impostare progetti scalabili, performanti e di qualità senza limitare la creatività nello sviluppo. Mi riferisco in particolare a progetti di grandi dimensioni che necessitano di una strutturazione ben definita.
 
 Per lavorare e comprendere al meglio il framework Angular è strettamente consigliato avere le basi di: 
 
-> *JavaScript, TypeScript, HTML, CSS/SCSS, RESTFull/API, RxJs, JSON, GIT*
+> *Angular, JavaScript, TypeScript, HTML, CSS/SCSS, RESTFull/API, RxJs, JSON, GIT*
 
   
 *OPTIONAL*: *NgRx, Signals e Standalone*
 
 Avere installata nella vostra macchina:  
 - NodeJS
-- Gestore versioni di nodejs come ad esempio NVM, NVS etc etc (Utilissimo per switchare di versione a seconda del progetto da lavorare)
+- Gestore versioni di nodejs come ad es. NVM, NVS etc etc (Utilissimo per switchare di versione a seconda del progetto da lavorare)
 
-Con il vostro gestione di nodejs scegliete la versione adatta alla versione di Angular ed è consultabile nella doc ufficiale di Angular [Link](https://angular.io/guide/versions)
+Con il vostro gestore di nodejs scegliete la versione adatta alla versione di Angular ed è consultabile nella doc ufficiale di Angular [Link](https://angular.io/guide/versions)
 
-Scegliere una cartella dove creare il progetto e lanciare il comando da terminale: "ng new nomeProgetto" e seguire le indicazioni che suggerisce il terminale ad esempio scegliere il formato di stile CSS,SCSS etc etc e settare o meno in automatico il routing (solitamente va settato).
+Scegli una cartella in cui creare il progetto, poi esegui il comando da terminale: "ng new nome-progetto" e segui le indicazioni fornite dal terminale. Ad esempio, seleziona il formato di stile desiderato (CSS, SCSS, ecc.) e decidi se abilitare o meno la creazione automatica del routing (di solito consigliato).
 
-Il progetto sotto la cartella app ha i files base per rendere eseguibile con una versione dell'applicativo semplice.
+Il progetto, situato nella cartella "app", contiene i file di base per rendere eseguibile una versione semplice dell'applicativo.
 
-Come da linee di guida di Angular conviene creare queste 3 cartelle sotto app: Core, Features e Shared. Ovviamente ognuna cartella ha il suo modulo di riferimento e posso avere sottocartelle per distinguere meglio i file.
+Conformemente alle linee guida di Angular, è consigliabile creare tre cartelle sotto "app": Core, Features e Shared. Ciascuna di queste cartelle dovrebbe avere il proprio modulo di riferimento ed è possibile aggiungere ulteriori sottocartelle per una migliore distinzione dei file.
 
--   **Core**: è la cartella dove vengono creati files/cartelle di cui impattano in tutto il sistema e per tutto il ciclo di vita dell'applicativo che possono contenere Interceptors, Guards, Footer, Header, Spinner etc etc
--   **Shared**: Contengono cartelle/files di elementi che vengono riutilizzati più volte in varie maschere o componenti presenti nel progetto ad esempio direttive, pipes, componenti riusabili (es bottone, un div particolare, tendina di opzioni), modali, modelli etc etc
--   **Features**: è lo scheletro dell'applicativo dove definisce com'è strutturato l'applicativo con i suoi sotto-moduli e rotte ben definite
+-   **Core**: Questa cartella contiene file e cartelle che impattano sull'intero sistema e durante tutto il ciclo di vita dell'applicativo. Può includere Interceptors, Guards, Footer, Header, Spinner, ecc.
+-   **Shared**: Questa cartella comprende file e cartelle di elementi che vengono riutilizzati in più parti del progetto. Ad esempio, direttive, pipes, componenti riutilizzabili (come pulsanti, div particolari, menu a tendina), modali, modelli, ecc.
+-   **Features**: -   Questa è la struttura portante dell'applicativo, dove si definisce la struttura dell'applicazione con i suoi sotto-moduli e rotte ben definite.
 
-E' buona prassi saper gestire un insieme di componenti raggruppandoli in sotto moduli per sfruttare la tecnologia del lazy-loading mediante routing e migliorare la performance dell'applicando alleggerendo il caricamento di files
+È una pratica consigliata gestire un insieme di componenti raggruppandoli in sotto-moduli. Questo consente di sfruttare la tecnologia del lazy-loading mediante il routing, migliorando le performance dell'applicazione e alleggerendo il carico di caricamento dei file.
+
+**BONUS**
+**Guards**: Le guardie sono utilizzate per impedire l'accesso a determinate rotte in assenza di autorizzazioni specifiche, offrendo un controllo di sicurezza efficace sia durante la procedura di accesso sia nella gestione dei token.
+
+**Interceptors**: Gli interceptors sono utilizzati per gestire i flussi di ingresso e uscita delle chiamate REST. Risultano particolarmente utili per la gestione degli errori, la manipolazione dei token e varie funzionalità relative alla gestione delle richieste e delle risposte.
 
 ## Come lavorare con i Servizi
-Nella cartella CORE i servizi devono essere solo al livello globale come ad esempio gestione utenze, chiamate API globali, utility etc etc con provider globale o Inject in unica istanza.
+Nella cartella CORE, i servizi dovrebbero essere posizionati a livello globale per gestire aspetti come la gestione utenze, chiamate API globali, utility, ecc. Si consiglia di utilizzare un provider globale o l'iniezione in un'unica istanza per questi servizi.
 
-Mentre per altri servizi devono essere definiti nei moduli che esigono quelle funzionalità pertinenti a quel moduli e sotto-moduli con providers al livello del modulo o al livello componente (a seconda dell'utilizzo anche creando più servizi). Se un servizio ha bisogno di un servizio presente in un altro modulo o di provenienza dalla cartella CORE è una buona prassi usare un servizio intermedio per comunicare dal componente al servizio finale mediante un servizio "facade" in modo tale che il componente non debba subire refactoring in futuro quando si cambiano servizi/metodi finali.
+Per quanto riguarda altri servizi, è consigliabile definirli nei moduli che richiedono funzionalità specifiche, inclusi i sotto-moduli, con i providers a livello del modulo o del componente, a seconda dell'utilizzo e della complessità.
 
-Conviene avere uno schema di servizi solo per la gestione delle chiamate API e organizzarli ad somiglianza dei moduli e non aggregarli in unico file. Analogo discorso per quanto riguarda nel raggruppare in vari ENUM gli endpoint.
+Se un servizio richiede l'utilizzo di un altro servizio proveniente da un diverso modulo o dalla cartella CORE, è una pratica comune utilizzare un servizio intermedio per facilitare la comunicazione dal componente al servizio finale. Questo intermediario può essere un "facade" service, garantendo che il componente non debba subire refactoring in futuro nel caso in cui si verifichino cambiamenti nei servizi o nei metodi finali.
 
-Alcuni esempi di gestione Servizi in un progetto
+Conviene adottare uno schema di servizi dedicato esclusivamente alla gestione delle chiamate API e organizzarli seguendo una struttura simile a quella dei moduli, evitando di aggregarli in un unico file. Lo stesso principio si applica al raggruppamento degli endpoint in vari ENUM, organizzati in base alle rispettive funzionalità o moduli.
+
+Alcuni esempi di gestione Servizi in un progetto, dove abbiamo questo scenario:
 
     Core -> Services -> callApi.service  
 
@@ -42,75 +49,80 @@ Alcuni esempi di gestione Servizi in un progetto
 
     Features -> FeatureA -> featureA.component  
 
-Se componente featureA vuole fare una GET deve chiamare featureAFacade dove a sua volta importa il servizio callApi.service con il suo metodo GET  
-Se il componente deve manipolare con certi dati complessi deve delegare le funzionalità al servizio di featureA.service in quanto è un'operazione riguardante solo alla FeatureA
+Se il componente "FeatureA" desidera effettuare una richiesta GET, dovrebbe chiamare il "FeatureAFacade", il quale a sua volta importa il servizio "CallApiService" con il suo metodo GET.
+
+Se il componente deve manipolare dati complessi, è consigliabile delegare tali funzionalità al servizio "FeatureAService", poiché queste operazioni sono specifiche e rientrano nell'ambito della FeatureA.
 
 ## Come lavorare con Componenti
 Vi sono due categorie di componenti: Smart e Dumb
 
-I componenti Smart sono quelli che comprendono un po' di "Business Logic" per un'iterazione funzionale all'utente e delegare funzioni complesse o chiamate API ai servizi predisposti. Il componente Smart fa delle operazioni come ad esempio gestire la form se è valida o meno, gestire i bottoni e varie parti della form in base alle condizioni e delegare le cose semplici come l'iterazione di un array o visualizzare una grande tabella al componente DUMB.
+I componenti Smart sono quelli che includono una parte di "Business Logic" per guidare l'interazione funzionale con l'utente. Si occupano di delegare funzioni complesse o chiamate API ai servizi predisposti. Inoltre, il componente Smart esegue operazioni come la gestione della validità della form, il controllo dei pulsanti e di varie parti della form in base alle condizioni. Le operazioni più semplici, come l'iterazione di un array o la visualizzazione di una grande tabella, sono invece delegate al componente DUMB.
 
-Il Componente Dumb solitamente sono componenti riciclabili (dentro modulo Shared) o sotto-componenti di Smart dove non fanno altro che ricevere in Input e visualizzare i dati e rimandare in alto in Output l'iterazione dell'utente ad esempio la selezione di una riga della tabella. In sintesi non devono avere nessuna logica e visualizzare solamente con Output di eventuali iterazioni dell'utente.
+I componenti Dumb sono solitamente componenti riciclabili, spesso inclusi nel modulo Shared, o sottocomponenti dei componenti Smart. Questi componenti non svolgono altro che ricevere dati in input e visualizzarli. Inoltre, restituiscono in output le interazioni dell'utente, come ad esempio la selezione di una riga in una tabella. In sintesi, i componenti Dumb non devono contenere alcuna logica e si limitano a visualizzare dati, gestendo solo gli output relativi alle interazioni dell'utente.
 
-Inoltre è importante nel saper creare un insieme di componente che riguardano in quella Feature suddividendoli in sotto-componenti facendo anche di un mix con quelli riutilizzabili per evitare le ridondanze.
+Inoltre, è importante saper creare un insieme di componenti che riguardano una specifica Feature, suddividendoli in sotto-componenti. È vantaggioso integrare anche componenti riutilizzabili per evitare ridondanze e promuovere una maggiore coerenza e manutenibilità del codice.
 
-Come lavorare con direttive, pipes, modali etc etc
+## Come lavorare con direttive, pipes, modali etc etc
 
-Come accennato in precedenza con queste funzionalità sono delle componentistiche che servono a semplificare la vita del programmatore creando funzionalità riusabili e "customizzabili" per rendere il progetto configurabile e con minor codice possibile. Le direttive sono ottime per gestire nelle porzioni HTML specifiche come ad esempio far colorare un testo selezionato. Le Pipe servono a trasformare oggetti o valori in un output particolare ad esempio trasformare gli ENUM in stringhe. I componenti riutilizzabili possono essere delle porzioni UI come ad esempio una particolare drop-down generica dove basta passargli una lista di oggetti con proprietà "id" e "value".
+Come accennato in precedenza, queste funzionalità servono a semplificare la vita del programmatore, creando funzionalità riutilizzabili e "customizzabili" per rendere il progetto configurabile e richiedere meno codice possibile. Le direttive sono particolarmente utili per gestire porzioni specifiche di HTML, come ad esempio colorare un testo selezionato. Le Pipe sono invece fondamentali per trasformare oggetti o valori in un output specifico, come la conversione di ENUM in stringhe. I componenti riutilizzabili, a loro volta, possono rappresentare porzioni di UI, come una drop-down generica, dove è sufficiente passare una lista di oggetti con proprietà "id" e "value".
 
-Tutti questi elementi vengono dichiarati nel modulo "Shared" dove a sua volta viene esportato e importato in qualsiasi modulo che abbia bisogno di queste funzionalità.
+Tutti questi elementi vengono dichiarati nel modulo "Shared", che a sua volta viene esportato e importato in qualsiasi modulo che necessiti di queste funzionalità. Questo approccio contribuisce alla riutilizzabilità delle funzionalità comuni in tutto il progetto.
 
 **BONUS**  
-Per una best pratice si consiglia di arrivare al massimo di 400 righe di codice per file. Questo permette di essere leggibile, mantenibile e prevenire bug oltre a rendere il codice riutilizzabile.
+Per una best practice, si consiglia di limitare la lunghezza di ciascun file a un massimo di 400 righe di codice. Questo aiuta a garantire la leggibilità, la manutenibilità, a prevenire bug e facilita il riutilizzo del codice.
 
 Nel progetto sono presenti altri file di configurazione e altre cartelle importanti da conoscere e sapere come funzionano.
+
 ## Folders & files structural
 **ASSETS**
-La cartella "assets" serve a contenere i metadati o contenuti per la UI del progetto. Infatti vengono definiti gli stili, i font, le immagini, icone custom, i18n etc etc. Anche qui è consigliato spacchettarli in più files per una miglior organizzazione dei file. Ad es. sotto la cartella assets  -> Styles -> creare tanti figli di stile .scss suddividendo per theme, components, modules
+La cartella "assets" è destinata a contenere metadati o contenuti per l'interfaccia utente del progetto. Qui vengono definiti gli stili, i font, le immagini, icone personalizzate, i file di internazionalizzazione (i18n), ecc. Si consiglia anche di suddividere questi elementi in più file per una migliore organizzazione. Ad esempio, sotto la cartella "assets", è consigliabile creare una struttura come "Styles" con sottocartelle tematiche, componenti e moduli, in modo da organizzare in modo efficiente i file di stile.
 
 **ENVIRONMENTS**
-Qui contengono i file environments che sono utili per contenere variabili statiche utile alle build in vari ambienti oltre allo sviluppo in locale. Si possono creare più file specifici per ogni ambiente desiderato ed è importante configurarlo per bene in quanti funziona a doppio filo con angular.json e package.json dove spiegheremo in seguito.
+All'interno della cartella, si trovano i file "environments" utili per contenere variabili statiche necessarie alle build nei diversi ambienti oltre allo sviluppo locale. È possibile creare file specifici per ciascun ambiente desiderato ed è importante configurarli attentamente, poiché interagiscono con angular.json e package.json, come verrà spiegato in seguito.
 
-In questi file possono contenere la base dell'URL, gli endpoints e varie configurazioni che servono in certi ambienti di rilascio e sviluppo oltre quelli di test.
+Questi file possono includere informazioni come la base dell'URL, gli endpoints e varie configurazioni specifiche per determinati ambienti di rilascio, sviluppo e test.
 
 **PACKAGE.JSON**
-Questo file è uno dei più importanti di tutto il progetto perché definisce i pacchetti installati con le relative versioni per scaricarli e renderli eseguibili in qualsiasi ambiente oltre a fornire le librerie necessarie per rendere eseguibile il progetto oltre alle varie funzionalità aggiuntive necessari per lo sviluppo.  
-Per rendere eseguibile è necessario avere npm o simile tool capace di leggere il file e rendere eseguibili in maniera automatica con semplici comandi.
+Il file package.json è uno dei più importanti dell'intero progetto in quanto definisce i pacchetti installati con le relative versioni. Questa definizione consente di scaricarli e renderli eseguibili in qualsiasi ambiente. Inoltre, fornisce le librerie necessarie per rendere il progetto eseguibile, insieme a varie funzionalità aggiuntive necessarie per lo sviluppo.
 
-Non è solo questo ma è anche "stendibile" e configurabile aggiungendo varie info come ad esempio aggiungere la versione di nodejs/npm, gli autori dello sviluppo, versione release, nome azienda e aggiungere vari comandi per diversificare l'esecuzione a seconda dell'ambiente in cui deve essere lanciato.
 
-Quest'ultimo aspetto è importante dove è legato con i file environments e angular.json come potete vedere nei comandi del tipo `"build": "ng build"` è possibile aggiungere una concatenazione di comandi ad esempio `"build-test":"ng build --configuration test"` dove indica che c'è una build con configurazione test  usando variabili globali presenti nel file environments.test.ts oltre alle varie configurazioni nel file angular.json. Una delle prassi abbastanza comuni è quello di impostare il baseHref subito dopo il comando (es. ng build) ma queste opzioni è possibile definirli nel file angular.json
+Per rendere eseguibile il progetto, è necessario disporre di npm o di un tool simile in grado di leggere il file package.json e di rendere eseguibili i pacchetti in maniera automatica attraverso comandi semplici.
+
+Inoltre, il file package.json non è solo essenziale per la gestione delle dipendenze, ma è anche estendibile e configurabile. È possibile aggiungere informazioni come la versione di Node.js/npm, gli autori dello sviluppo, la versione di rilascio, il nome dell'azienda e vari comandi per diversificare l'esecuzione in base all'ambiente in cui deve essere lanciato. Questa flessibilità rende il file package.json uno strumento cruciale per la configurazione e la gestione del progetto.
+
+Quest'ultimo aspetto è importante e collegato ai file environments e a angular.json, come evidenziato nei comandi del tipo `"build": "ng build"`. È possibile aggiungere concatenazioni di comandi, ad esempio `"build-test": "ng build --configuration test"`, dove si indica che c'è una build con configurazione test utilizzando variabili globali presenti nel file environments.test.ts, oltre alle diverse configurazioni specificate in angular.json.
+
+Una pratica comune è impostare il baseHref subito dopo il comando (ad esempio, `ng build`). Tuttavia, queste opzioni possono essere definite nel file angular.json, offrendo una maggiore flessibilità nella configurazione del processo di build.
 
 **Bonus**:  
-Qui glossario su come funzionano i pacchetti con aggiornamenti ed upgrade e la differenza tra ~ e ^ [Link](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#dependencies)
+Qui il glossario su come funzionano i pacchetti con aggiornamenti ed upgrade e la differenza tra ~ e ^ [Link](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#dependencies)
 
 **ANGULAR.JSON**
 Il file angular.json al livello root di uno spazio di lavoro Angular fornisce impostazioni predefinite di configurazione a livello di spazio di lavoro e specifiche del progetto.  Questi vengono utilizzati per gli strumenti di creazione e sviluppo forniti dalla CLI Angular.
 
-Tra le varie proprietà di questo file possiamo trovare la versione, lo schema di generazione dei file, la cli utilizzata e infine dentro "projects" abbiamo le varie configurazioni che si legano ai file di package.json ed environments. Le varie configurazioni sono definire quali fogli di stile compilare nelle build, la cartella destinazione della build, le dimensioni, i vari puntamenti, il baseHref che citavo in precedenza sotto la proprietà "architect". Sotto questa proprietà possiamo notare i nomi delle proprietà uguali quelli presenti nel file package.json dove al lancio del comando vengono settate ed eseguite le configurazioni presenti nel file angular.json e tra le varie opzioni c'è "fileReplacements" che consiste quale file di environments usare in quel specifico ambiente.
+Tra le varie proprietà di questo file, possiamo trovare la versione, lo schema di generazione dei file, la CLI utilizzata e, infine, all'interno di "projects", abbiamo le varie configurazioni che si collegano ai file `package.json` ed `environments`. Le configurazioni includono la definizione di quali fogli di stile compilare durante le build, la cartella di destinazione delle build, le dimensioni, i vari puntamenti e il `baseHref` menzionato in precedenza sotto la proprietà "architect". Nella sezione "architect", i nomi delle proprietà coincidono con quelli presenti nel file `package.json`, dove al lancio del comando vengono impostate ed eseguite le configurazioni presenti nel file `angular.json`. Tra le varie opzioni, c'è "fileReplacements", che specifica quale file di `environments` utilizzare in un ambiente specifico.
 
 **TSCONFIG.JSON**
-Quest'altro file contengono le configurazioni sul compilatore di Typescript dove è buona prassi configurarlo bene per rendere il codice leggibile, ordinato e secondo le linee guide internazionali su come scrivere codice anche per come tenere ordinato ogni singolo componente/file.
+Questo file contiene le configurazioni relative al compilatore di TypeScript. È una buona prassi configurarlo attentamente per garantire che il codice sia leggibile, ordinato e rispetti le linee guida internazionali sullo stile di scrittura del codice, inclusa la corretta organizzazione di ogni singolo componente o file.
 
-E' un elemento (specie nei progetti grandi) cardine e ha messo controlli abbastanza restrittivi per offrire qualità del codice oltre all'ordinamento dei file secondo le best pratices.
-
-Può lavorare in accoppiata con ESLINT/PRETTIER.
+Questo elemento è fondamentale, soprattutto nei progetti di grandi dimensioni, e impone controlli restrittivi per garantire la qualità del codice, oltre a organizzare i file secondo le best practices. Può lavorare in tandem con ESLint/Prettier, contribuendo a mantenere un elevato standard qualitativo del codice e una struttura ben organizzata.
 
 **.GITIGNORE**
-File importante se vuoi lavorare con git e serve ad indicare file, cartelle o gruppo di cartelle di non essere caricati nel repository di git in quanto non utili come ad esempio la gigantesca cartella di node_modules o il file package-lock.json
+Il file `.gitignore` è di grande importanza quando si lavora con Git. Serve per indicare a Git di non tracciare o caricare nel repository determinati file, cartelle o gruppi di cartelle che potrebbero non essere necessari o desiderati. Un esempio comune è l'inclusione di linee nel `.gitignore` per escludere la gigantesca cartella `node_modules` o il file `package-lock.json`, che possono essere generati durante la gestione delle dipendenze di un progetto Node.js. Questo aiuta a mantenere il repository più pulito, più leggero e a evitare l'inclusione di file superflui durante la condivisione del codice.
 
 **BONUS**
-Inoltre nel progetto generato dalla cli di Angular vengono creati anche altrettanti file per lavorare e rendere l'ambiente di lavoro ben configurato dove possiamo trovare altrettanti file importanti di cui: .eslintrc.json e .prettierrc (vengono inseriti come pacchetti aggiuntivi per lo sviluppo migliore), .gitignore etc etc  
-DISLAIMER: Con le ultime versioni della cli di angular questi file NON vengono aggiunti in automatico ma bensì quando si installano questi tools e generati a sua volta i file di configurazione.
+Inoltre, nel progetto generato dalla CLI di Angular, vengono creati anche numerosi file per configurare l'ambiente di lavoro in modo efficace. Tra questi, troviamo file importanti come `.eslintrc.json` e `.prettierrc`, che vengono aggiunti come pacchetti aggiuntivi per migliorare lo sviluppo. Altri esempi di file fondamentali includono `.gitignore`, etc.
+
+*DISCLAIMER*: Con le ultime versioni della CLI di Angular, questi file NON vengono più aggiunti automaticamente al momento della creazione del progetto, ma vengono generati quando si installano gli strumenti associati, come ESLint e Prettier, e vengono successivamente configurati.
 
 **.PRETTIERRC**
-Serve a formattare i files in cui lavorate e in qualsiasi formato .ts, .scss etc etc in maniera automatica al seguito di ogni salvataggio. Ottimo per agevolare la qualità del codice automatizzato e configurabile con il salvataggio o comandi di formattazione da tastiera.
+Il file `.prettierrc` è utilizzato per configurare Prettier e formattare automaticamente i file in cui si lavora, indipendentemente dal formato come .ts, .scss, ecc. Questo processo di formattazione automatica avviene al salvataggio del file, contribuendo a mantenere una buona qualità del codice. La configurazione di Prettier è altamente personalizzabile e può essere adattata alle esigenze specifiche del progetto. Inoltre, può essere configurato per eseguire la formattazione automatica con il salvataggio o mediante comandi di formattazione da tastiera, offrendo un modo flessibile e comodo di gestire la formattazione del codice.
 
 **.ESLINT**
-ESLint è uno strumento di analisi del codice statico per identificare i modelli problematici presenti nel codice JavaScript. In pratica con le giuste configurazioni serve ad analizzare il codice di tutto il progetto con le best pratices di coding, lintng e qualità con un semplice comando oltre a fixarle in un secondo comando. Se configurato con il plugin del tuo IDE è possibile visualizzare gli errori in tempo reale, consigliatissimo.
+ESLint è uno strumento di analisi del codice statico progettato per identificare i modelli problematici presenti nel codice JavaScript. Con le giuste configurazioni, ESLint analizza il codice dell'intero progetto, applicando le best practices di coding, linting e garantendo la qualità del codice mediante un semplice comando. Inoltre, con un secondo comando, è possibile correggere automaticamente i problemi segnalati. Se configurato con il plugin del tuo IDE, ESLint può anche visualizzare gli errori in tempo reale, fornendo un feedback immediato durante lo sviluppo. Questo strumento è altamente consigliato per migliorare la qualità e la coerenza del codice JavaScript.
 
 **Husky**
-Gli hook (husky) Git sono script che puoi configurare per essere eseguiti in determinati eventi nel ciclo di vita Git. Questi eventi includono diverse fasi di un commit, come prima di un commit (pre-commit) e dopo un commit (post-commit). Questi sono utili in quanto consentono agli sviluppatori di eseguire attività di codice personalizzato o addirittura di applicare standard automatizzando altri script per eseguire tali attività.
+Gli hook Git (Husky) sono script che è possibile configurare per essere eseguiti in determinati eventi nel ciclo di vita di Git. Questi eventi includono diverse fasi di un commit, come prima di un commit (pre-commit) e dopo un commit (post-commit). Gli hook sono utili poiché consentono agli sviluppatori di eseguire attività di codice personalizzate o addirittura di applicare standard automatizzando altri script per eseguire tali attività. Husky facilita l'integrazione di questi hook nel flusso di lavoro di Git, contribuendo a mantenere uno standard elevato durante il processo di sviluppo.
 
 **BONUS**
 Git: Naming conventions push
@@ -136,5 +148,10 @@ Git: Naming conventions push
   
 
 **SWAGGER**
-Swagger serve a semplificare lo sviluppo delle API o meglio ancora avere un documento consultabile sulle API da utilizzare con le loro interfacce con simulazioni di chiamate annesse.  
-Similarmente è possibile anche usare POSTMAN che ha differenti funzionalità e strumenti rispetto a swagger.
+Swagger serve a semplificare lo sviluppo delle API fornendo un documento consultabile sulle API utilizzabili con le relative interfacce, inclusi dettagli e simulazioni di chiamate annesse. Questo strumento facilita la comprensione e l'interazione con le API durante lo sviluppo.
+
+È anche possibile utilizzare POSTMAN, che offre funzionalità e strumenti differenti rispetto a Swagger, ma anch'esso è un valido strumento per testare e interagire con le API. Entrambi, Swagger e POSTMAN, sono risorse utili durante il processo di sviluppo API, ciascuno con le proprie caratteristiche specifiche.
+
+## Gestione Branch
+In questa immagine, potete prendere spunto su come lavorare e gestire i branch, dall'ambiente di sviluppo fino alla produzione, includendo anche la gestione dei bug con i relativi responsabili e approvatori.
+![enter image description here]([https://photos.app.goo.gl/YSHUDdoW7HJv2JXn8](https://lh3.googleusercontent.com/pw/ABLVV87g1KnKtxeLPCzdBApfxUxW1hyuc95emXCjXFz6YQo4z5lUEafGgoq6sNS7N4OHyB7W_qcC4XN6-MDPoapV3WXMlPzxQ8HkX2Ahm2qlbkYzMdcO8WGRMZ2N9xxdE4cczf3fDkJ9T-xmmh1ovsePXZmz=w1059-h498-s-no-gm?authuser=0)https://lh3.googleusercontent.com/pw/ABLVV87g1KnKtxeLPCzdBApfxUxW1hyuc95emXCjXFz6YQo4z5lUEafGgoq6sNS7N4OHyB7W_qcC4XN6-MDPoapV3WXMlPzxQ8HkX2Ahm2qlbkYzMdcO8WGRMZ2N9xxdE4cczf3fDkJ9T-xmmh1ovsePXZmz=w1059-h498-s-no-gm?authuser=0)
