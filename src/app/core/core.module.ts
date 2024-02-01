@@ -6,14 +6,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { RequestInterceptorService } from './interceptors/request-interceptor.service';
 import { ResponseInterceptorService } from './interceptors/response-interceptor.service';
-import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [NavBarComponent],
   exports: [NavBarComponent],
   imports: [CommonModule, RouterLink, HttpClientModule],
   providers: [
-    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptorService,

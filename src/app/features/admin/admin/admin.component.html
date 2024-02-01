@@ -1,1 +1,8 @@
-<p>admin works!</p>
+<h2>admin works!</h2>
+
+<h3>Try this sample NgRx lifecycle (see the code)</h3>
+<button (click)="loadListRoles()">Load List Roles</button>
+
+<section *ngFor="let role of listRoles$ | async">
+  <li>{{ role }}</li>
+</section>

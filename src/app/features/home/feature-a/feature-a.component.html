@@ -7,3 +7,5 @@
   <div>DESCRIPTION: {{ repo.description }}</div>
   <br />
 </section>
+
+<section *ngIf="!(listGitHubRepo$ | async)">Loading...</section>

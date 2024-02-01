@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-nav-bar',
   template: `
+    <button routerLink="login">Login</button>
     <button routerLink="home">Home</button>
     <button routerLink="home/feature-a">Feature A</button>
     <button routerLink="home/feature-b">Feature B</button>

@@ -1,8 +1,10 @@
 import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 
-import { AuthService } from '../core/auth/auth.service';
+import { State } from '../reducers';
+import { selectAuthAuthenticated } from '../core/auth/store/auth.selector';
 
 const routes: Routes = [
   {
@@ -13,7 +15,14 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
-    canActivate: [() => inject(AuthService).isUserAdmin()],
+    canActivate: [
+      () => inject(Store<State>).pipe(select(selectAuthAuthenticated)),
+    ],
+  },
+  {
+    path: `login`,
+    loadChildren: () =>
+      import(`./login/login.module`).then((m) => m.LoginModule),
   },
 ];
 
@@ -21,6 +30,5 @@ const routes: Routes = [
   declarations: [],
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [AuthService],
 })
 export class FeaturesRoutingModule {}

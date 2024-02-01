@@ -1,7 +1,8 @@
 {
   "root": true,
   "ignorePatterns": [
-    "projects/**/*"
+    "projects/**/*",
+    "*.effect.ts"
   ],
   "overrides": [
     {
@@ -42,11 +43,8 @@
           "error",
           {
             "allowExpressions": true,
-            // Consente alle espressioni di avere il tipo implicito
             "allowTypedFunctionExpressions": true,
-            // Consente alle funzioni con tipi espliciti
             "allowHigherOrderFunctions": true
-            // Consente alle funzioni di ordine superiore con tipi espliciti
           }
         ],
         "arrow-body-style": [
@@ -102,6 +100,14 @@
           }
         ]
       }
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended-requiring-type-checking"
+      ]
     }
   ]
 }

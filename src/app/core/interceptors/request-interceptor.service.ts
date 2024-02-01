@@ -6,14 +6,29 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
 
-import { AuthService } from '../auth/auth.service';
+import {
+  selectAuthAuthenticated,
+  selectAuthToken,
+} from '../auth/store/auth.selector';
+import { State } from '../auth/store/auth.reducer';
 
 @Injectable()
 export class RequestInterceptorService implements HttpInterceptor {
-  protected readonly authService = inject(AuthService);
+  private readonly store = inject(Store<State>);
+  private authenticated = false;
+  private token: string | null = '';
 
-  constructor() {}
+  constructor() {
+    this.store
+      .pipe(select(selectAuthAuthenticated))
+      .subscribe((auth) => (this.authenticated = auth));
+
+    this.store
+      .pipe(select(selectAuthToken))
+      .subscribe((token) => (this.token = token));
+  }
 
   intercept(
     req: HttpRequest<any>,
@@ -21,10 +36,10 @@ export class RequestInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let cloneReq = req;
 
-    if (!this.authService.isUserAuthenticated()) {
+    if (this.authenticated) {
       if (req.method === 'GET') {
         cloneReq = req.clone({
-          params: req.params.set('Bearer', this.authService.getToken()),
+          params: req.params.set('Bearer', this.token ?? ''),
         });
       }
     }
