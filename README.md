@@ -9,6 +9,8 @@ Per lavorare e comprendere al meglio il framework Angular è strettamente consig
   
 *OPTIONAL*: *NgRx, Signals e Standalone*
 
+***Come creare il progetto da zero***
+
 Avere installata nella vostra macchina:  
 - NodeJS
 - Gestore versioni di nodejs come ad es. NVM, NVS etc etc (Utilissimo per switchare di versione a seconda del progetto da lavorare)
@@ -27,10 +29,18 @@ Conformemente alle linee guida di Angular, è consigliabile creare tre cartelle 
 
 È una pratica consigliata gestire un insieme di componenti raggruppandoli in sotto-moduli. Questo consente di sfruttare la tecnologia del lazy-loading mediante il routing, migliorando le performance dell'applicazione e alleggerendo il carico di caricamento dei file.
 
+#### N.B.
+Se avete scaricato il repository con la struttura ben definita, è sufficiente installare i pacchetti tramite il comando `npm install` e prendere spunto dal repository così com'è strutturato, seguendo le linee guida dettate nella sezione precedente.
+
+------------
+
 **BONUS**
+
 **Guards**: Le guardie sono utilizzate per impedire l'accesso a determinate rotte in assenza di autorizzazioni specifiche, offrendo un controllo di sicurezza efficace sia durante la procedura di accesso sia nella gestione dei token.
 
 **Interceptors**: Gli interceptors sono utilizzati per gestire i flussi di ingresso e uscita delle chiamate REST. Risultano particolarmente utili per la gestione degli errori, la manipolazione dei token e varie funzionalità relative alla gestione delle richieste e delle risposte.
+
+_**Ovviamente vanno applicati selettori e actions per rendere il tutto più asincrono e gestito dallo state management**_
 
 ## Come lavorare con i Servizi
 Nella cartella CORE, i servizi dovrebbero essere posizionati a livello globale per gestire aspetti come la gestione utenze, chiamate API globali, utility, ecc. Si consiglia di utilizzare un provider globale o l'iniezione in un'unica istanza per questi servizi.
@@ -75,15 +85,22 @@ Nel progetto sono presenti altri file di configurazione e altre cartelle importa
 
 ## Folders & files structural
 **ASSETS**
-La cartella "assets" è destinata a contenere metadati o contenuti per l'interfaccia utente del progetto. Qui vengono definiti gli stili, i font, le immagini, icone personalizzate, i file di internazionalizzazione (i18n), ecc. Si consiglia anche di suddividere questi elementi in più file per una migliore organizzazione. Ad esempio, sotto la cartella "assets", è consigliabile creare una struttura come "Styles" con sottocartelle tematiche, componenti e moduli, in modo da organizzare in modo efficiente i file di stile.
+
+La cartella `assets` è destinata a contenere metadati o contenuti per l'interfaccia utente del progetto. Qui vengono definiti gli stili, i font, le immagini, icone personalizzate, i file di internazionalizzazione (i18n), ecc. Si consiglia anche di suddividere questi elementi in più file per una migliore organizzazione. Ad esempio, sotto la cartella "assets", è consigliabile creare una struttura come "Styles" con sottocartelle tematiche, componenti e moduli, in modo da organizzare in modo efficiente i file di stile.
+
+------------
 
 **ENVIRONMENTS**
-All'interno della cartella, si trovano i file "environments" utili per contenere variabili statiche necessarie alle build nei diversi ambienti oltre allo sviluppo locale. È possibile creare file specifici per ciascun ambiente desiderato ed è importante configurarli attentamente, poiché interagiscono con angular.json e package.json, come verrà spiegato in seguito.
+
+All'interno della cartella, si trovano i file `environments` utili per contenere variabili statiche necessarie alle build nei diversi ambienti oltre allo sviluppo locale. È possibile creare file specifici per ciascun ambiente desiderato ed è importante configurarli attentamente, poiché interagiscono con angular.json e package.json, come verrà spiegato in seguito.
 
 Questi file possono includere informazioni come la base dell'URL, gli endpoints e varie configurazioni specifiche per determinati ambienti di rilascio, sviluppo e test.
 
+------------
+
 **PACKAGE.JSON**
-Il file package.json è uno dei più importanti dell'intero progetto in quanto definisce i pacchetti installati con le relative versioni. Questa definizione consente di scaricarli e renderli eseguibili in qualsiasi ambiente. Inoltre, fornisce le librerie necessarie per rendere il progetto eseguibile, insieme a varie funzionalità aggiuntive necessarie per lo sviluppo.
+
+Il file `package.json` è uno dei più importanti dell'intero progetto in quanto definisce i pacchetti installati con le relative versioni. Questa definizione consente di scaricarli e renderli eseguibili in qualsiasi ambiente. Inoltre, fornisce le librerie necessarie per rendere il progetto eseguibile, insieme a varie funzionalità aggiuntive necessarie per lo sviluppo.
 
 
 Per rendere eseguibile il progetto, è necessario disporre di npm o di un tool simile in grado di leggere il file package.json e di rendere eseguibili i pacchetti in maniera automatica attraverso comandi semplici.
@@ -97,17 +114,26 @@ Una pratica comune è impostare il baseHref subito dopo il comando (ad esempio, 
 **Bonus**:  
 Qui il glossario su come funzionano i pacchetti con aggiornamenti ed upgrade e la differenza tra ~ e ^ [Link](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#dependencies)
 
+------------
+
 **ANGULAR.JSON**
-Il file angular.json al livello root di uno spazio di lavoro Angular fornisce impostazioni predefinite di configurazione a livello di spazio di lavoro e specifiche del progetto.  Questi vengono utilizzati per gli strumenti di creazione e sviluppo forniti dalla CLI Angular.
+
+Il file `angular.json` al livello root di uno spazio di lavoro Angular fornisce impostazioni predefinite di configurazione a livello di spazio di lavoro e specifiche del progetto.  Questi vengono utilizzati per gli strumenti di creazione e sviluppo forniti dalla CLI Angular.
 
 Tra le varie proprietà di questo file, possiamo trovare la versione, lo schema di generazione dei file, la CLI utilizzata e, infine, all'interno di "projects", abbiamo le varie configurazioni che si collegano ai file `package.json` ed `environments`. Le configurazioni includono la definizione di quali fogli di stile compilare durante le build, la cartella di destinazione delle build, le dimensioni, i vari puntamenti e il `baseHref` menzionato in precedenza sotto la proprietà "architect". Nella sezione "architect", i nomi delle proprietà coincidono con quelli presenti nel file `package.json`, dove al lancio del comando vengono impostate ed eseguite le configurazioni presenti nel file `angular.json`. Tra le varie opzioni, c'è "fileReplacements", che specifica quale file di `environments` utilizzare in un ambiente specifico.
 
+------------
+
 **TSCONFIG.JSON**
+
 Questo file contiene le configurazioni relative al compilatore di TypeScript. È una buona prassi configurarlo attentamente per garantire che il codice sia leggibile, ordinato e rispetti le linee guida internazionali sullo stile di scrittura del codice, inclusa la corretta organizzazione di ogni singolo componente o file.
 
 Questo elemento è fondamentale, soprattutto nei progetti di grandi dimensioni, e impone controlli restrittivi per garantire la qualità del codice, oltre a organizzare i file secondo le best practices. Può lavorare in tandem con ESLint/Prettier, contribuendo a mantenere un elevato standard qualitativo del codice e una struttura ben organizzata.
 
+------------
+
 **.GITIGNORE**
+
 Il file `.gitignore` è di grande importanza quando si lavora con Git. Serve per indicare a Git di non tracciare o caricare nel repository determinati file, cartelle o gruppi di cartelle che potrebbero non essere necessari o desiderati. Un esempio comune è l'inclusione di linee nel `.gitignore` per escludere la gigantesca cartella `node_modules` o il file `package-lock.json`, che possono essere generati durante la gestione delle dipendenze di un progetto Node.js. Questo aiuta a mantenere il repository più pulito, più leggero e a evitare l'inclusione di file superflui durante la condivisione del codice.
 
 **BONUS**
@@ -115,13 +141,22 @@ Inoltre, nel progetto generato dalla CLI di Angular, vengono creati anche numero
 
 *DISCLAIMER*: Con le ultime versioni della CLI di Angular, questi file NON vengono più aggiunti automaticamente al momento della creazione del progetto, ma vengono generati quando si installano gli strumenti associati, come ESLint e Prettier, e vengono successivamente configurati.
 
+------------
+
 **.PRETTIERRC**
+
 Il file `.prettierrc` è utilizzato per configurare Prettier e formattare automaticamente i file in cui si lavora, indipendentemente dal formato come .ts, .scss, ecc. Questo processo di formattazione automatica avviene al salvataggio del file, contribuendo a mantenere una buona qualità del codice. La configurazione di Prettier è altamente personalizzabile e può essere adattata alle esigenze specifiche del progetto. Inoltre, può essere configurato per eseguire la formattazione automatica con il salvataggio o mediante comandi di formattazione da tastiera, offrendo un modo flessibile e comodo di gestire la formattazione del codice.
 
+------------
+
 **.ESLINT**
+
 ESLint è uno strumento di analisi del codice statico progettato per identificare i modelli problematici presenti nel codice JavaScript. Con le giuste configurazioni, ESLint analizza il codice dell'intero progetto, applicando le best practices di coding, linting e garantendo la qualità del codice mediante un semplice comando. Inoltre, con un secondo comando, è possibile correggere automaticamente i problemi segnalati. Se configurato con il plugin del tuo IDE, ESLint può anche visualizzare gli errori in tempo reale, fornendo un feedback immediato durante lo sviluppo. Questo strumento è altamente consigliato per migliorare la qualità e la coerenza del codice JavaScript.
 
+------------
+
 **Husky**
+
 Gli hook Git (Husky) sono script che è possibile configurare per essere eseguiti in determinati eventi nel ciclo di vita di Git. Questi eventi includono diverse fasi di un commit, come prima di un commit (pre-commit) e dopo un commit (post-commit). Gli hook sono utili poiché consentono agli sviluppatori di eseguire attività di codice personalizzate o addirittura di applicare standard automatizzando altri script per eseguire tali attività. Husky facilita l'integrazione di questi hook nel flusso di lavoro di Git, contribuendo a mantenere uno standard elevato durante il processo di sviluppo.
 
 **BONUS**
@@ -145,7 +180,7 @@ Git: Naming conventions push
 > - refactor is for changing code for peformance or convenience purpose (e.g. readibility)
 > - chore is for everything else (writing documentation, formatting, adding tests, cleaning useless code etc.)
 
-  
+------------
 
 **SWAGGER**
 Swagger serve a semplificare lo sviluppo delle API fornendo un documento consultabile sulle API utilizzabili con le relative interfacce, inclusi dettagli e simulazioni di chiamate annesse. Questo strumento facilita la comprensione e l'interazione con le API durante lo sviluppo.
@@ -153,5 +188,5 @@ Swagger serve a semplificare lo sviluppo delle API fornendo un documento consult
 È anche possibile utilizzare POSTMAN, che offre funzionalità e strumenti differenti rispetto a Swagger, ma anch'esso è un valido strumento per testare e interagire con le API. Entrambi, Swagger e POSTMAN, sono risorse utili durante il processo di sviluppo API, ciascuno con le proprie caratteristiche specifiche.
 
 ## Gestione Branch
-In questa immagine, potete prendere spunto su come lavorare e gestire i branch, dall'ambiente di sviluppo fino alla produzione, includendo anche la gestione dei bug con i relativi responsabili e approvatori.
+In questa immagine, potete prendere spunto su come lavorare e gestire i branch, dall'ambiente di sviluppo fino alla produzione, includendo anche la gestione dei bug con i relativi responsabili e approvatori. (credit Alessandro Monno)
 ![Image](https://i.ibb.co/DkxD7Rv/branches.png)
