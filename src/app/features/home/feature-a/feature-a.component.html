@@ -1,9 +1,11 @@
 <h3>feature-a works!</h3>
 
-<section *ngFor="let repo of listGitHubRepo$ | async">
+@for (repo of listGitHubRepo$ | async; track repo) {
+<section>
   <div>ID: {{ repo.id }}</div>
   <div>NAME: {{ repo.name }}</div>
   <div>HTML URL: <a href="{{ repo.html_url }}">Link</a></div>
   <div>DESCRIPTION: {{ repo.description }}</div>
   <br />
 </section>
+}

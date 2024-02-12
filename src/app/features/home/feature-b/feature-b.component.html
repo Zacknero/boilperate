@@ -1,1 +1,17 @@
-<p>feature-b works!</p>
+<h1>feature-b works!</h1>
+<p>Work with signals</p>
+<div>
+  <p>Counter: {{ counter() }}</p>
+  <div>
+    <button (click)="decrement()">Decrement</button>
+    <button (click)="increment()">Increment</button>
+  </div>
+  <app-double-counter [inputValue]="counter()" />
+</div>
+
+<h3>Action Log</h3>
+<ol>
+  @for (action of actions(); track action) {
+    <li>{{ action }}</li>
+  }
+</ol>

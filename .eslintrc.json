@@ -42,11 +42,8 @@
           "error",
           {
             "allowExpressions": true,
-            // Consente alle espressioni di avere il tipo implicito
             "allowTypedFunctionExpressions": true,
-            // Consente alle funzioni con tipi espliciti
             "allowHigherOrderFunctions": true
-            // Consente alle funzioni di ordine superiore con tipi espliciti
           }
         ],
         "arrow-body-style": [

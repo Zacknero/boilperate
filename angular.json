@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/boilperate",
             "index": "src/index.html",
@@ -44,9 +44,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
@@ -72,13 +70,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "boilperate:build:production"
+              "buildTarget": "boilperate:build:production"
             },
             "development": {
-              "browserTarget": "boilperate:build:development"
+              "buildTarget": "boilperate:build:development"
             },
             "tester": {
-              "browserTarget": "boilperate:build:tester"
+              "buildTarget": "boilperate:build:tester"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "boilperate:build"
+            "buildTarget": "boilperate:build"
           }
         },
         "test": {

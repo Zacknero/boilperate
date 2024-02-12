@@ -11,8 +11,6 @@ import { Repos } from '../../shared/models/repos';
 export class ApiService {
   protected readonly httpClient = inject(HttpClient);
 
-  constructor() {}
-
   loadRepo(): Observable<Repos[]> {
     return this.httpClient.get<Repos[]>(
       `${environment.apiUrl}users/angular/repos`,

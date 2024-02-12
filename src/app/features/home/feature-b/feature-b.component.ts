@@ -1,9 +1,13 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, signal, ViewChild } from "@angular/core";
+
+import { DoubleCounterComponent } from "./double-counter/double-counter.component";
 
 @Component({
   selector: 'app-feature-b',
   templateUrl: './feature-b.component.html',
-  styleUrls: ['./feature-b.component.scss']
+  styleUrls: ['./feature-b.component.scss'],
+  standalone: true,
+  imports: [DoubleCounterComponent]
 })
 export class FeatureBComponent {
   // Proprietà private
@@ -17,6 +21,9 @@ export class FeatureBComponent {
   public outputValue = '';
 
   label = 'LLLLLLL';
+
+  counter = signal(0);
+  actions = signal<string[]>([]);
 
   // Metodi privati
   private _privateMethod(): void {
@@ -34,5 +41,16 @@ export class FeatureBComponent {
     // Logica del metodo
     this.outputValue = 'test2';
     this._privateMethod();
+  }
+
+  decrement() {
+    this.counter.update((oldCount) => oldCount - 1);
+    //this.counter.set(this.counter()+1)
+    this.actions.update((oldActions) => [...oldActions, 'INCREMENT']);
+  }
+
+  increment() {
+    this.counter.update((oldCount) => oldCount + 1);
+    this.actions.update((oldActions) => [...oldActions, 'DECREMENT']);
   }
 }
