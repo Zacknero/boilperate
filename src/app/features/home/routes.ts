@@ -3,6 +3,8 @@ import { Route } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { TestComponent } from './test/test.component';
 import { environment } from '../../../environments/environment';
+import { featureAResolver } from "./feature-a/resolver/feature-a.resolver";
+import { FeatureAFacadeService } from "./feature-a/services/feature-a-facade.service";
 
 export const HOME_ROUTES: Route[] = [
   /*{path: '', redirectTo: 'home', pathMatch: 'full'},*/
@@ -16,6 +18,10 @@ export const HOME_ROUTES: Route[] = [
       import('./feature-a/feature-a.component').then(
         (c) => c.FeatureAComponent,
       ),
+    providers: [FeatureAFacadeService],
+    resolve: {
+      featureA: featureAResolver,
+    },
   },
   {
     path: 'feature-b',

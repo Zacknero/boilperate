@@ -5,7 +5,7 @@ import {ApiService} from "../../../../core/services/api.service";
 
 export class FeatureAFacadeService {
 
-  private saluto: string = 'cacca';
+  private saluto: string = 'cià cià';
   protected readonly apiService = inject(ApiService);
 
   constructor() { }
